@@ -3,7 +3,7 @@
 This repo contains code that I wrote for the SFPC's [Recreating the Past](https://sfpc.io/recreatingthepast-spring2020/
 ) course. In this course, we study computational art from the past decades and recreate these works with contemporary techniques to gain aesthetic, analytical and technical knowledge. The class is led by artist and SFPC co-founder Zach Lieberman.
 
-Concepts and works studied:\
+## Concepts and works studied
 Chaos and Order (Vera Molnar)\
 Animation and Harmony (John Whitney)\
 Computational Typography (Muriel Cooper / John Maeda)\
