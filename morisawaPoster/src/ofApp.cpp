@@ -19,30 +19,39 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    string text = "モリサワ";
-    
     int color = 50;
     float ypos = 760;
     float scale = 0.025;
     for (int i = 0; i < 70; i++) {
-        ofSetColor(color);
-        ofPushMatrix();
-            ofScale(1, scale, 1);
-            ofTranslate(0, ypos*(1/scale));
-            font.drawString(text, 10, 10);
-        ofPopMatrix();
-        
-        color += 3;
-        if (i < 10) {
-            ypos -= 5;
+        drawMorisawa(color, ypos, scale);
+        if (i < 3) {
+            color += 4;
+            ypos -= 3;
+        } else if (i < 10) {
+            color += 4;
+            ypos -= i;
         } else {
+            color += 3;
             ypos -= 10;
         }
         scale += 0.025;
     }
 
-    ofSetColor(10);
-    font.drawString(text, 10, ypos);
+    drawMorisawa(20, ypos, 1);
+}
+
+void ofApp::drawMorisawa(int color, float ypos, float scale) {
+    string text = "モリサワ";
+    vector < ofPath > paths = font.getStringAsPoints(text);
+    
+    ofSetColor(color);
+    ofPushMatrix();
+        ofScale(1, scale, 1);
+        ofTranslate(0, ypos*(1/scale));
+        for (int i = 0; i < paths.size(); i++) {
+            paths[i].draw();
+        }
+    ofPopMatrix();
 }
 
 //--------------------------------------------------------------
