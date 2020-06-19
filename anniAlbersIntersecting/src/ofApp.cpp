@@ -27,6 +27,16 @@ void ofApp::draw(){
     drawRow(originX, originY, orange);
     drawRow(originX, originY + threadHeight * numRowsInCell, lightBlue);
     drawRow(originX, originY + threadHeight * numRowsInCell * 2, orange);
+    
+    ofSetColor(lightBlue);
+    ofSetLineWidth(5);
+    int colWidth = numColsInCell * threadWidth;
+    
+    int x = originX + 20 * colWidth;
+    int y = originY + 12 * threadHeight + 2;
+    drawSnake(x, y, x - 2 * colWidth, x + colWidth, 11, 100);
+    
+    drawWarp(originX, originY);
 }
 
 void ofApp::drawRow(float xpos, float ypos, ofColor weft) {
@@ -66,6 +76,58 @@ void ofApp::drawCell(float xpos, float ypos, ofColor warp, ofColor weft){
                 ofSetColor(endColor);
             }
             ofDrawRectangle(x, y, threadWidth, threadHeight);
+            x += threadWidth;
+        }
+        x = xpos;
+        y += threadHeight;
+    }
+}
+
+void ofApp::drawSnake(int x1, int y1, int minX, int maxX, int height, int seed) {
+    ofSeedRandom(seed);
+    float x2;
+    float y2;
+    for (int i = 0; i < height; i++) {
+        int lineLength = ofRandom(3*3, maxX - minX);
+        x2 = i % 2 == 0 ? MAX(minX, x1 - lineLength) : MIN(maxX, x1 + lineLength);
+        y2 = y1;
+        ofDrawLine(x1, y1, x2, y2);
+
+        if (i == height - 1) {
+            return;
+        }
+        x1 = x2;
+        y1 = y2 + 10;
+        ofDrawLine(x2, y2, x1, y1);
+    }
+}
+
+void ofApp::drawWarp(float xpos, float ypos) {
+    int x = xpos;
+    int y = ypos;
+    for (int i = 0; i < numCols; i++) {
+        if (i % 2 == 0) {
+            ofSetColor(orange);
+        } else if ((i + 1) % 4 == 0) {
+            ofSetColor(white);
+        } else {
+            ofSetColor(navy);
+        }
+        drawWarpCol(x, y);
+        x += numColsInCell * threadWidth;
+    }
+}
+
+void ofApp::drawWarpCol(float xpos, float ypos){
+    int x = xpos;
+    int y = ypos;
+    ofColor startColor;
+    ofColor endColor;
+    for (int r = 0; r < numRowsInCell * 3; r++) {
+        for (int c = 0; c < numColsInCell; c++) {
+            if (r % 2 == 0 && c % 2 != 0) {
+                ofDrawRectangle(x+1, y, threadWidth-1, threadHeight);
+            }
             x += threadWidth;
         }
         x = xpos;

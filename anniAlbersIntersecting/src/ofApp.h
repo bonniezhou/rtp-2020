@@ -23,6 +23,9 @@ class ofApp : public ofBaseApp{
     
     void drawRow(float x, float y, ofColor weft);
     void drawCell(float x, float y, ofColor warp, ofColor weft);
+    void drawSnake(int x1, int y1, int minX, int maxX, int height, int seed = 0);
+    void drawWarp(float xpos, float ypos);
+    void drawWarpCol(float xpos, float ypos);
     
     ofColor orange;
     ofColor navy;
